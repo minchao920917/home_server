@@ -1,5 +1,5 @@
 var express = require('express');
-
+var Util = require('../util/util.js')
 var router = express.Router();
 
 
@@ -26,15 +26,10 @@ router.get('/a', function(req, res, next) {
  * by:minchao
 */
 router.post('/login', function(req, res, next) {
-  console.log(req.body);
-  var user_name = req.body.username;
-  var password = req.body.password;
+  var user_name = req.body.username?req.body.username:"";
+  var password = req.body.password?req.body.password:"";
   if(user_name == "" || password == ""){
-    res.json({
-      status:"1",
-      data:{},
-      msg:"用户名或密码不能为空"
-    })
+    res.json(Util.returnMes("1",{},"用户名或密码不能为空!"));
     return;
   }
   var baseModel = new BaseModel();//创建baseModel实例
@@ -47,36 +42,33 @@ router.post('/login', function(req, res, next) {
     }],
     "or":[]
   };
+
   var handleLogin = function(result){
     if(!result[0]){
-      res.json({
-        status:"1",
-        data:{
-        },
-        msg:"用户名不存在"
-      })
+      res.json(Util.returnMes("1",{},"用户名不存在!"));
       return;
     } 
     if(result[0].password !== password){
-      res.json({
-        status:"1",
-        data:{
-        },
-        msg:"密码不正确"
-      })
+      res.json(Util.returnMes("1",{},"密码不正确!"));
       return;
     }
+   var ip= Util.getIp(req);//获取ip地址
+   var loginRecord = {
+     "user_id":result[0].id,
+     "ip":ip,
+     "login_time":Util.toDataString(new Date())
+   }
+   baseModel.insert("h_login",loginRecord,function(newId){
+     if(result){
+      res.json(Util.returnMes("1",{},"登录成功!"));
+     }else{
+      res.json(Util.returnMes("1",{},"登录记录插入失败!"));
+     }
     
-      res.json({
-        status:"1",
-        data:{
-        },
-        msg:"登录成功"
-      })
-    
+   })
+  
   };
   baseModel.find(table_name, whereJson, null, [], [], handleLogin);
-
 });
 
 module.exports = router;
