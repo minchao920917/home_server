@@ -21,6 +21,8 @@ router.get('/a', function(req, res, next) {
 });
 
 /** 
+ * 
+ * 登录路由
  * name:"login"
  * type:post
  * by:minchao
