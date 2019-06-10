@@ -1,6 +1,6 @@
 var fs = require('fs')//引入文件模块
     , http = require('http')
-    , util = require('util')
+    , jwt = require('jsonwebtoken')
     , sys = require('util');//引入常用工具模块
 /**
  * 获取json文件中的key的
@@ -61,7 +61,7 @@ exports.getIpInfo = function (ip) {
  * @param {string} ip ip地址
  * @method 根据ip地址获取地理信息
  */
-exports.getAddress =function(ip){
+exports.getAddress = function (ip) {
     let options = {
         hostname: 'http://ipquery.market.alicloudapi.com',    //接口域
         path: `/query?ip=${ip}`,    //请求地址
@@ -74,21 +74,20 @@ exports.getAddress =function(ip){
         // 发起请求
         let req = http.request(options, res => {
             let chunks = [];
-            
+
             res.on('data', chunk => {
                 chunks.push(chunk);
             })
             res.on('end', () => {
                 let buffer = Buffer.concat(chunks).toString();
                 // 如果接口返回空值
-                let data = buffer ? JSON.parse(buffer) : {code: 1, data: 'ip接口没有返回值'};
+                let data = buffer ? JSON.parse(buffer) : { code: 1, data: 'ip接口没有返回值' };
                 resolve(data);
             })
         })
         // 请求出错
         req.on('error', err => {
-            console.log('请求接口出错')
-            resolve({code: 1, data: "请求ip接口出错"});
+            resolve({ code: 1, data: "请求ip接口出错" });
         })
         // 请求结束
         req.end();
@@ -176,4 +175,65 @@ exports.toDataString = function (dataTime) {
         ":" +
         second.substring(second.length - 2, second.length)
     );
+}
+
+/**
+ * @desc   登录校验
+ * @param  {ctx} ctx 
+ * @return {Object}
+ */
+exports.checkLogin = function (ctx) {
+    let uid = ctx.cookies.get('uid');
+    if (!uid) {
+        return Tips[1005];
+    } else {
+        return Tips[0];
+    }
+}
+
+/**
+ * @desc   生成token
+ * @param  {data} data 
+ * @return {String}
+ */
+exports.generateToken = function (data) {
+    // let created = Math.floor(Date.now() / 1000);
+    let cert = 'minchangfeng.com';
+    let token = jwt.sign(
+        data,
+        cert, {
+            expiresIn: 60 * 60 * 1  // 1小时过期
+        });
+    return token;
+}
+
+/**
+ * @desc   token检验
+ * @param  {token} token 
+ * @return {Object}
+ */
+exports.verifyToken = function (token) {
+    let cert = 'minchangfeng.com';
+    let result = {
+        code:1,
+        mes:"token校验通过"
+    };
+
+      
+    jwt.verify(token, cert,function(err,decoded){
+        console.log(err)
+        console.log(decoded)
+        if(err){
+            result.code = 0;
+            result.mes = 'token已失效，请重新登录';
+        }else if(decoded.exp < Math.round(new Date() / 1000)){
+            result.code = 0;
+            result.mes = 'token已失效，请重新登录';
+        }
+        //当前判断keyValue如果不等于null/undefined/0/""/等值就执行下面的逻辑
+    });
+
+    console.log(result)
+    return result;
+
 }
