@@ -6,7 +6,7 @@ var router = express.Router();
 var BaseModel = require('../model/base_model.js');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
   var baseModel = new BaseModel();//创建baseModel实例
   res.send('respond with a resource');
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 
 /* GET users listing. */
-router.get('/a', function(req, res, next) {
+router.get('/a', function (req, res, next) {
 
   var baseModel = new BaseModel();//创建baseModel实例
   res.send('ss');
@@ -27,50 +27,55 @@ router.get('/a', function(req, res, next) {
  * type:post
  * by:minchao
 */
-router.post('/login', function(req, res, next) {
-  var phone = req.body.phone?req.body.phone:"";
-  var password = req.body.password?req.body.password:"";
-  if(phone == "" || password == ""){
-    res.json(Util.returnMes("0",{},"用户名或密码不能为空!"));
+router.post('/login', function (req, res, next) {
+  var phone = req.body.phone ? req.body.phone : "";
+  var password = req.body.password ? req.body.password : "";
+  if (phone == "" || password == "") {
+    res.json(Util.returnMes("0", {}, "用户名或密码不能为空!"));
     return;
   }
   var baseModel = new BaseModel();//创建baseModel实例
   var table_name = 'h_users';
   var whereJson = {
-    "and":[{
-      "key":"phone",
-      "opts":"=",
-      "value":"'"+phone+"'"
+    "and": [{
+      "key": "phone",
+      "opts": "=",
+      "value": "'" + phone + "'"
     }],
-    "or":[]
+    "or": []
   };
 
-  var handleLogin = function(result){
-    
-    if(!result[0]){
-      res.json(Util.returnMes("0",{},"用户名不存在!"));
+  var handleLogin = function (result) {
+
+    if (!result[0]) {
+      res.json(Util.returnMes("0", {}, "用户名不存在!"));
       return;
-    } 
-    if(result[0].password !== password){
-      res.json(Util.returnMes("0",{},"密码不正确!"));
+    }
+    if (result[0].password !== password) {
+      res.json(Util.returnMes("0", {}, "密码不正确!"));
       return;
     }
     var person = result[0];
-   var ip= Util.getIp(req);//获取ip地址
-   var loginRecord = {
-     "user_id":result[0].id,
-     "ip":ip,
-     "login_time":Util.toDataString(new Date())
-   }
-   baseModel.insert("h_login",loginRecord,function(){
-     if(result){
-      res.json(Util.returnMes("1",person,"登录成功!"));
-     }else{
-      res.json(Util.returnMes("0",{},"登录记录插入失败!"));
-     }
-    
-   })
-  
+    var user_name = person.user_name;
+    var token = Util.generateToken({ user_name });
+    var ip = Util.getIp(req);//获取ip地址
+    var loginRecord = {
+      "user_id": result[0].id,
+      "ip": ip,
+      "login_time": Util.toDataString(new Date()),
+      "token": token
+    }
+    var data = person;
+    data.token = token;
+    baseModel.insert("h_login", loginRecord, function () {
+      if (result) {
+        res.json(Util.returnMes("1", data, "登录成功!"));
+      } else {
+        res.json(Util.returnMes("0", {}, "登录记录插入失败!"));
+      }
+
+    })
+
   };
   baseModel.find(table_name, whereJson, null, [], [], handleLogin);
 });
