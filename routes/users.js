@@ -57,7 +57,8 @@ router.post('/login', function (req, res, next) {
     }
     var person = result[0];
     var user_name = person.user_name;
-    var token = Util.generateToken({ user_name });
+    var account_id = person.id;
+    var token = Util.generateToken({ user_name, account_id});
     var ip = Util.getIp(req);//获取ip地址
     var loginRecord = {
       "user_id": result[0].id,

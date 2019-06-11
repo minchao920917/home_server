@@ -231,6 +231,9 @@ exports.verifyToken = function (token) {
             result.mes = 'token已失效，请重新登录';
         }
         //当前判断keyValue如果不等于null/undefined/0/""/等值就执行下面的逻辑
+        else{
+            result.account_id = decoded.account_id;
+        }
     });
 
     console.log(result)

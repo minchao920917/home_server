@@ -32,6 +32,7 @@ router.post('/list', function(req, res, next) {
       var list = ['11','22','33','44'];
       let data ={};
       data.list = list;
+      data.account_id =  rs.account_id;
       res.json(Util.returnMes("0", data, "获取数据成功!"));
     }else{
       res.json(Util.returnMes("0", {}, rs.mes));
