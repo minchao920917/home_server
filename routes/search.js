@@ -6,7 +6,7 @@ var router = express.Router();
 var BaseModel = require('../model/base_model.js');
 
 router.all('/',function(req, res, next){
-  //怎么写？
+  
   console.log(req.header('Authorization'));
   var token = req.header('Authorization');
   if(token){
