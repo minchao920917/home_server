@@ -203,7 +203,8 @@ exports.generateToken = function (data) {
     let token = jwt.sign(
         data,
         cert, {
-            expiresIn: 60 * 60 * 1  // 1小时过期
+            // expiresIn: 60 * 60 * 1  // 1小时过期
+            expiresIn: 60 * 1  // 1分钟过期
         });
     return token;
 }
@@ -219,14 +220,12 @@ exports.verifyToken = function (token) {
         code:1,
         mes:"token校验通过"
     };
-
-      
     jwt.verify(token, cert,function(err,decoded){
         console.log(err)
         console.log(decoded)
         if(err){
             result.code = 0;
-            result.mes = 'token已失效，请重新登录';
+            result.mes = '无效的token';
         }else if(decoded.exp < Math.round(new Date() / 1000)){
             result.code = 0;
             result.mes = 'token已失效，请重新登录';

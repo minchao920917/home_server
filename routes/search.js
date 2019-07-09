@@ -2,9 +2,6 @@ var express = require('express');
 var Util = require('../util/util.js')
 var router = express.Router();
 
-
-var BaseModel = require('../model/base_model.js');
-
 router.all('/',function(req, res, next){
   
   console.log(req.header('Authorization'));
@@ -35,10 +32,10 @@ router.post('/list', function(req, res, next) {
       data.account_id =  rs.account_id;
       res.json(Util.returnMes("0", data, "获取数据成功!"));
     }else{
-      res.json(Util.returnMes("0", {}, rs.mes));
+      res.json(Util.returnMes("401", {}, rs.mes));
     }
   }else{
-    res.json(Util.returnMes("0", data, "未获取到token信息!"));
+    res.json(Util.returnMes("1001", data, "未获取到token信息!"));
   }
 
 });
