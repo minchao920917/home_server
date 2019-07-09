@@ -30,6 +30,7 @@ router.get('/a', function (req, res, next) {
 router.post('/login', function (req, res, next) {
   var phone = req.body.phone ? req.body.phone : "";
   var password = req.body.password ? req.body.password : "";
+  var equipment = req.body.equipment?req.body.equipment:"未知"
   if (phone == "" || password == "") {
     res.json(Util.returnMes("0", {}, "用户名或密码不能为空!"));
     return;
@@ -64,7 +65,7 @@ router.post('/login', function (req, res, next) {
       "user_id": result[0].id,
       "ip": ip,
       "login_time": Util.toDataString(new Date()),
-      "token": token
+      "equipment":equipment
     }
     var data = person;
     data.token = token;
