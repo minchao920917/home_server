@@ -1,7 +1,6 @@
 var Util = require('../../util/util')
 ,dbConfig = require('./dbconfig')
 , mysql = require('mysql')
-, dbClient;
 
 module.exports = function(){
     __constructor();
@@ -152,12 +151,16 @@ module.exports = function(){
         /* 判断条件是否存在，如果存在则转换相应的添加语句 */
         var filedsStr = fieldsArr.length>0 ? fieldsArr.join(',') : '*'
             , andStr    = andArr.length>0    ? andArr.join(' and ') : ''
-            , orStr     = orArr.length>0     ? ' or '+orArr.join(' or ') : ''
+            , orStr     = orArr.length>0     ? ' or '+ orArr.join(' or ') : ''
             , limitStr  = limitArr.length>0  ? ' limit ' + limitArr.join(',') : ''
             , orderStr  = orderByJson ? ' order by ' + orderByJson['key'] + ' ' + orderByJson['type'] : '';
         /* 执行mysql语句 */
-        console.log('SELECT ' + filedsStr + ' FROM ' + tableName + ' WHERE ' + andStr + orStr + orderStr + limitStr);
-        dbClient.query('SELECT ' + filedsStr + ' FROM ' + tableName + ' WHERE ' + andStr + orStr + orderStr + limitStr,
+        var sql ="";
+        sql +='SELECT ' + filedsStr + ' FROM ' + tableName;
+        andStr+andStr?(sql+ ' WHERE ' + andStr + orStr):(sql+ andStr + orStr)
+        sql +=orderStr + limitStr;
+        console.log(sql);
+        dbClient.query(sql,
             function(error, results) {
                 if (error) {
                     console.log('GetData Error: ' + error.message);
