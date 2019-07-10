@@ -154,13 +154,11 @@ module.exports = function(){
             , orStr     = orArr.length>0     ? ' or '+ orArr.join(' or ') : ''
             , limitStr  = limitArr.length>0  ? ' limit ' + limitArr.join(',') : ''
             , orderStr  = orderByJson ? ' order by ' + orderByJson['key'] + ' ' + orderByJson['type'] : '';
+        
+        var whereStr = (andStr+orStr =="")?'':' WHERE ' + andStr + orStr;
         /* 执行mysql语句 */
-        var sql ="";
-        sql +='SELECT ' + filedsStr + ' FROM ' + tableName;
-        andStr+andStr?(sql+ ' WHERE ' + andStr + orStr):(sql+ andStr + orStr)
-        sql +=orderStr + limitStr;
-        console.log(sql);
-        dbClient.query(sql,
+        console.log('SELECT ' + filedsStr + ' FROM ' + tableName + whereStr + orderStr + limitStr);
+        dbClient.query('SELECT ' + filedsStr + ' FROM ' + tableName + whereStr + orderStr + limitStr,
             function(error, results) {
                 if (error) {
                     console.log('GetData Error: ' + error.message);

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50644
 File Encoding         : 65001
 
-Date: 2019-07-09 17:19:33
+Date: 2019-07-10 19:22:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,6 +29,22 @@ CREATE TABLE `h_financial` (
 
 -- ----------------------------
 -- Records of h_financial
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `h_home`
+-- ----------------------------
+DROP TABLE IF EXISTS `h_home`;
+CREATE TABLE `h_home` (
+  `home_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `home_name` varchar(50) NOT NULL COMMENT '家庭名称',
+  `home_perId` int(10) NOT NULL COMMENT '所有人id',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`home_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of h_home
 -- ----------------------------
 
 -- ----------------------------
@@ -55,7 +71,7 @@ CREATE TABLE `h_login` (
   `equipment` varchar(55) NOT NULL COMMENT '登录设备',
   `login_time` varchar(50) NOT NULL COMMENT '登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_login
@@ -70,6 +86,13 @@ INSERT INTO `h_login` VALUES ('54', '1', '::1', 'MacOSX', '2019-07-09 15:04:26')
 INSERT INTO `h_login` VALUES ('55', '1', '::1', 'MacOSX', '2019-07-09 15:05:02');
 INSERT INTO `h_login` VALUES ('56', '1', '::1', 'MacOSX', '2019-07-09 15:06:10');
 INSERT INTO `h_login` VALUES ('57', '1', '::1', 'MacOSX', '2019-07-09 15:14:24');
+INSERT INTO `h_login` VALUES ('58', '1', '::1', 'windows', '2019-07-10 10:46:12');
+INSERT INTO `h_login` VALUES ('59', '1', '::1', '未知', '2019-07-10 10:53:19');
+INSERT INTO `h_login` VALUES ('60', '1', '::1', '未知', '2019-07-10 10:53:26');
+INSERT INTO `h_login` VALUES ('61', '1', '::1', '未知', '2019-07-10 10:55:15');
+INSERT INTO `h_login` VALUES ('62', '1', '::1', 'MacOSX', '2019-07-10 10:57:28');
+INSERT INTO `h_login` VALUES ('63', '1', '::1', 'MacOSX', '2019-07-10 11:27:29');
+INSERT INTO `h_login` VALUES ('64', '1', '::1', '未知', '2019-07-10 15:27:26');
 
 -- ----------------------------
 -- Table structure for `h_notify`
@@ -98,14 +121,18 @@ CREATE TABLE `h_users` (
   `user_name` varchar(50) NOT NULL COMMENT '用户名',
   `password` varchar(20) NOT NULL COMMENT '登录密码',
   `phone` varchar(11) NOT NULL COMMENT '手机号',
+  `home_id` int(11) NOT NULL COMMENT '家庭id',
   `role` int(11) NOT NULL COMMENT '1家庭户主，0普通成员',
   `nick_name` varchar(50) NOT NULL COMMENT '昵称',
   `create_time` varchar(50) NOT NULL COMMENT '创建时间',
+  `update_time` varchar(50) NOT NULL COMMENT '更新时间',
   `remarks` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_users
 -- ----------------------------
-INSERT INTO `h_users` VALUES ('1', '闵超', '123456', '13656241819', '0', '', '', null);
+INSERT INTO `h_users` VALUES ('1', '闵超', '123456', '13656241819', '0', '0', '', '', '', null);
+INSERT INTO `h_users` VALUES ('2', '闵长峰', '123456', '18151109519', '0', '0', 'minchangfeng', '2019-07-10 14:17:35', '', null);
+INSERT INTO `h_users` VALUES ('7', '闵小花', '123456', '18162210123', '0', '0', '闵小花2', '2019-07-10 15:30:11', '2019-07-10 15:56:31', null);

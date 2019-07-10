@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 11:41:49
  * @ Modified by: minchao
- * @ Modified time: 2019-07-10 19:18:26
+ * @ Modified time: 2019-07-11 11:10:39
  * @ Description: 用户成员模块
  */
 
@@ -11,6 +11,9 @@ var BaseModel = require('../../model/baseModel');
 
 // 获取成员列表
 exports.getUserList = (req, res, next) => {
+    var pageSize =req.body.pageSize?req.body.pageSize:"";
+    var pageNum =req.body.pageNum?req.body.pageNum:"";
+    
     var baseModel = new BaseModel(); //创建baseModel实例
 
     baseModel.find("h_users", {
@@ -19,7 +22,7 @@ exports.getUserList = (req, res, next) => {
     }, {
         'key': 'create_time',
         'type': 'desc'
-    }, [], [], (results) => {
+    }, [(pageNum-1)*pageSize,pageSize], [], (results) => {
         console.log(results);
         if (results) {
             res.json(Util.returnMes("1", results, "获取用户列表成功!"));
@@ -66,6 +69,7 @@ exports.createUser = (req, res, next) => {
         "or": []
     };
     var handleFind = function (result) {
+        console.log(result);
         if (!result[0]) {
             baseModel.insert("h_users", userObject, function () {
                 if (result) {
