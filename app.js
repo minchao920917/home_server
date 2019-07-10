@@ -1,17 +1,16 @@
 var createError = require('http-errors');
+var Util = require('./util/util');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var searchRouter = require('./routes/search');
+var api = require('./api/index')
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -29,17 +28,12 @@ app.all('*', function (req, res, next) {
   next();
 });
 
-
-
-
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/search', searchRouter);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404).json(Util.returnMes("404", {}, "请求丢失，请重新确认"));
+  next();
 });
 
 // error handler
@@ -50,7 +44,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.status(500).json(Util.returnMes("500", {}, "服务内部错误"));
 });
 
 module.exports = app;

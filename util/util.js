@@ -2,22 +2,6 @@ var fs = require('fs')//引入文件模块
     , http = require('http')
     , jwt = require('jsonwebtoken')
     , sys = require('util');//引入常用工具模块
-/**
- * 获取json文件中的key的
- * @param fileName 文件路径+文件名
- * @param key 属性名key
- * @returns {*}
- */
-exports.get = function (fileName, key) {
-    var configJson = {};
-    try {
-        var str = fs.readFileSync(fileName, 'utf8');//读取json文件
-        configJson = JSON.parse(str);//将字符转成对象类型
-    } catch (e) {
-        sys.debug("JSON 解析错误")
-    }
-    return configJson[key];//返回key的对象
-}
 
 /**
  * 获取客户端的ip地址
@@ -40,59 +24,6 @@ exports.getIp = function (req) {
     return req.headers['x-real-ip'] ? req.headers['x-real-ip'] : req.ip.replace(/::ffff:/, '');
 }
 
-
-/**
- * 根据 ip 获取获取地址信息
- */
-exports.getIpInfo = function (ip) {
-    var sina_server = 'http://ipquery.market.alicloudapi.com/query?ip=';
-    var url = sina_server + ip;
-    var add = "";
-    http.get(url, function (res) {
-        if (res.code === '200') {
-            add = data.country + "," + data.region + "," + data.city;
-        }
-    });
-    return add;
-};
-
-
-/**
- * @param {string} ip ip地址
- * @method 根据ip地址获取地理信息
- */
-exports.getAddress = function (ip) {
-    let options = {
-        hostname: 'http://ipquery.market.alicloudapi.com',    //接口域
-        path: `/query?ip=${ip}`,    //请求地址
-        headers: {    //请求头
-            "Content-Type": "application/json; charset=utf-8",
-            "Authorization": "435c4184c2fe4af6ba2537a6f28e3706"
-        }
-    }
-    return new Promise((resolve, reject) => {
-        // 发起请求
-        let req = http.request(options, res => {
-            let chunks = [];
-
-            res.on('data', chunk => {
-                chunks.push(chunk);
-            })
-            res.on('end', () => {
-                let buffer = Buffer.concat(chunks).toString();
-                // 如果接口返回空值
-                let data = buffer ? JSON.parse(buffer) : { code: 1, data: 'ip接口没有返回值' };
-                resolve(data);
-            })
-        })
-        // 请求出错
-        req.on('error', err => {
-            resolve({ code: 1, data: "请求ip接口出错" });
-        })
-        // 请求结束
-        req.end();
-    })
-}
 
 /**
  * 返回json统一方法
@@ -178,19 +109,6 @@ exports.toDataString = function (dataTime) {
     );
 }
 
-/**
- * @desc   登录校验
- * @param  {ctx} ctx 
- * @return {Object}
- */
-exports.checkLogin = function (ctx) {
-    let uid = ctx.cookies.get('uid');
-    if (!uid) {
-        return Tips[1005];
-    } else {
-        return Tips[0];
-    }
-}
 
 /**
  * @desc   生成token

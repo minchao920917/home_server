@@ -1,5 +1,5 @@
-var Util = require('../util/util.js')
-, sys = require('util')//引入常用工具模块
+var Util = require('../../util/util')
+,dbConfig = require('./dbconfig')
 , mysql = require('mysql')
 , dbClient;
 
@@ -11,12 +11,11 @@ module.exports = function(){
      * 数据库连接构造函数
      */
     function __constructor(){
-        var dbConfig = Util.get('./config/db_config.json', 'db');
         /* 获取mysql配置信息 */
         client = {};
         client.host = dbConfig['host'];
         client.port = dbConfig['port'];
-        client.user = dbConfig['user'];
+        client.user = dbConfig['username'];
         client.password = dbConfig['password'];
         dbClient = mysql.createConnection(client);
         dbClient.connect();
@@ -43,6 +42,7 @@ module.exports = function(){
     this.insert = function(tableName, rowInfo, callback){
         dbClient.query('INSERT INTO ' + tableName + ' SET ?', rowInfo, function(err, result) {
             if (err) throw err;
+            console.log('insert -'+' success!');
             callback(result.insertId);
         });
     };
