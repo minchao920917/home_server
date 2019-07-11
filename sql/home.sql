@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50644
 File Encoding         : 65001
 
-Date: 2019-07-10 19:22:40
+Date: 2019-07-11 18:33:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,16 +20,29 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `h_financial`;
 CREATE TABLE `h_financial` (
-  `id` int(11) NOT NULL COMMENT 'id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `type` int(11) NOT NULL COMMENT '类型：0支出，1收入',
   `figure_number` decimal(10,2) NOT NULL COMMENT '数额',
   `reason` varchar(255) NOT NULL COMMENT '收入/支出原因',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `person_id` int(11) NOT NULL COMMENT '人id',
+  `home_id` int(11) NOT NULL COMMENT '家id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_financial
 -- ----------------------------
+INSERT INTO `h_financial` VALUES ('1', '1', '22.00', '叫外卖', '2019-07-11 17:45:30', null, '1', '1');
+INSERT INTO `h_financial` VALUES ('2', '1', '33.00', '点水果茶', '2019-07-11 17:45:55', '2019-07-11 18:29:04', '1', '1');
+INSERT INTO `h_financial` VALUES ('4', '0', '33.00', '点水果33茶', '2019-07-11 17:46:01', '2019-07-11 18:29:24', '1', '1');
+INSERT INTO `h_financial` VALUES ('5', '0', '22.00', '叫外卖', '2019-07-11 17:46:01', null, '1', '1');
+INSERT INTO `h_financial` VALUES ('6', '0', '22.00', '叫外卖', '2019-07-11 17:46:02', null, '1', '1');
+INSERT INTO `h_financial` VALUES ('7', '0', '22.00', '叫外卖', '2019-07-11 17:47:21', null, '1', '1');
+INSERT INTO `h_financial` VALUES ('8', '0', '22.00', '叫外卖', '2019-07-11 18:17:18', null, '1', '1');
+INSERT INTO `h_financial` VALUES ('9', '0', '22.00', '叫外卖', '2019-07-11 18:20:14', null, '1', '1');
+INSERT INTO `h_financial` VALUES ('10', '0', '22.00', '叫外11卖', '2019-07-11 18:20:19', null, '1', '1');
 
 -- ----------------------------
 -- Table structure for `h_home`
@@ -104,13 +117,27 @@ CREATE TABLE `h_notify` (
   `title` varchar(255) NOT NULL COMMENT '通知标题',
   `content` varchar(255) NOT NULL COMMENT '通知内容',
   `create_time` varchar(255) NOT NULL COMMENT '发布时间',
+  `update_time` varchar(255) DEFAULT '' COMMENT '更新时间',
   `person_id` int(11) NOT NULL COMMENT '发布人id',
+  `home_id` int(11) NOT NULL COMMENT '家id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_notify
 -- ----------------------------
+INSERT INTO `h_notify` VALUES ('2', '1', '修改title', '修改content', '2019-07-11 16:47:36', '2019-07-11 17:40:53', '1', '0');
+INSERT INTO `h_notify` VALUES ('3', '1', '第一条通知', '第一条通知内容', '2019-07-11 16:47:39', null, '1', '0');
+INSERT INTO `h_notify` VALUES ('5', '0', '第一条通知', '第一条通知内容', '2019-07-11 16:48:04', null, '1', '0');
+INSERT INTO `h_notify` VALUES ('6', '0', '第一条通知', '第一条通知内容', '2019-07-11 16:59:48', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('8', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:10:42', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('9', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:10:43', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('10', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:10:43', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('11', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:10:44', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('12', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:10:45', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('13', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:10:46', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('14', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:10:47', '', '1', '0');
+INSERT INTO `h_notify` VALUES ('15', '0', '第一条通知', '第一条通知内容', '2019-07-11 17:40:40', '', '1', '1');
 
 -- ----------------------------
 -- Table structure for `h_users`
@@ -128,7 +155,7 @@ CREATE TABLE `h_users` (
   `update_time` varchar(50) NOT NULL COMMENT '更新时间',
   `remarks` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_users
@@ -136,3 +163,10 @@ CREATE TABLE `h_users` (
 INSERT INTO `h_users` VALUES ('1', '闵超', '123456', '13656241819', '0', '0', '', '', '', null);
 INSERT INTO `h_users` VALUES ('2', '闵长峰', '123456', '18151109519', '0', '0', 'minchangfeng', '2019-07-10 14:17:35', '', null);
 INSERT INTO `h_users` VALUES ('7', '闵小花', '123456', '18162210123', '0', '0', '闵小花2', '2019-07-10 15:30:11', '2019-07-10 15:56:31', null);
+INSERT INTO `h_users` VALUES ('8', '闵长峰', '123456', '13656241129', '0', '0', 'mincha', '2019-07-11 10:38:23', '', null);
+INSERT INTO `h_users` VALUES ('9', '闵长峰', '123456', '13656241129', '0', '0', 'mincha', '2019-07-11 10:38:25', '', null);
+INSERT INTO `h_users` VALUES ('10', '闵长峰', '123456', '13656241129', '0', '0', 'mincha', '2019-07-11 10:39:19', '', null);
+INSERT INTO `h_users` VALUES ('11', '闵长峰', '123456', '13656241129', '0', '0', 'mincha', '2019-07-11 10:41:04', '', null);
+INSERT INTO `h_users` VALUES ('12', '闵长峰', '123456', '11656241129', '0', '0', 'mincha', '2019-07-11 10:46:02', '', null);
+INSERT INTO `h_users` VALUES ('13', '闵长峰', '123456', '11656441129', '0', '0', 'mincha', '2019-07-11 10:46:13', '', null);
+INSERT INTO `h_users` VALUES ('14', '闵长峰', '123456', '11656461129', '0', '0', 'mincha', '2019-07-11 10:56:03', '', null);
