@@ -1,11 +1,9 @@
 var loginController = require('./login') // 登录
 var userController = require('./user') // 用户
-<<<<<<< HEAD
 var notifyController = require('./notify') // 通知
 var financialController = require('./financial') // 账单
-=======
-var notifyController = require('./notify') // 用户
->>>>>>> 2b9af9aceeba5f8854bca8972ad3d88246db8726
+var addressController = require('./address') // 地址管理
+var contactsController = require('./contacts') // 名片夹管理
 
 exports.longin = loginController.longin // 登录
 exports.getUserList = userController.getUserList //获取用户列表 
@@ -21,7 +19,6 @@ exports.getNotifyById = notifyController.getNotifyById //根据id查找通知
 exports.editNotify = notifyController.editNotify //根据id修改通知
 exports.removeNotify = notifyController.removeNotify //根据id删除通知
 
-<<<<<<< HEAD
 
 exports.getFinacialList = financialController.getFinacialList //账单列表
 exports.addFinacial = financialController.addFinacial //新增账单
@@ -30,7 +27,18 @@ exports.editFinacial = financialController.editFinacial //修改账单
 exports.removeFinacial = financialController.removeFinacial //删除账单
 
 
+exports.getAddressList = addressController.getAddressList //地址列表
+exports.addAddress = addressController.addAddress //新增地址
+exports.getAddressById = addressController.getAddressById //根据id查找地址
+exports.editAddress = addressController.editAddress //修改地址
+exports.removeAddress = addressController.removeAddress //删除地址
 
 
-=======
->>>>>>> 2b9af9aceeba5f8854bca8972ad3d88246db8726
+exports.getContactsList = contactsController.getContactsList //名片列表
+exports.addContacts = contactsController.addContacts //新增名片
+exports.getContactsById = contactsController.getContactsById //根据id查找名片
+exports.editContacts = contactsController.editContacts //修改名片
+exports.removeContacts = contactsController.removeContacts //删除名片
+
+
+

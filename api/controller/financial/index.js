@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 18:18:03
  * @ Modified by: minchao
- * @ Modified time: 2019-07-11 18:31:18
+ * @ Modified time: 2019-07-12 15:07:53
  * @ Description: 账单管理 h_financial
  */
 
@@ -71,7 +71,7 @@ exports.getFinacialyById = (req, res, next)=>{
 //修改账单
 exports.editFinacial = (req, res, next)=>{
     var baseModel = new BaseModel(); //创建baseModel实例
-    var notifies = {
+    var finacial = {
         "id": req.body.id,
         "type": req.body.type,
         "figure_number": req.body.figure_number,
@@ -79,7 +79,7 @@ exports.editFinacial = (req, res, next)=>{
         "update_time": Util.toDataString(new Date())
     }
     var idJson = {
-        'id': notifies.id
+        'id': finacial.id
     };
     var handleModify = function (result) {
         if (result) {
@@ -90,7 +90,7 @@ exports.editFinacial = (req, res, next)=>{
     }
     baseModel.findOneById("h_financial", idJson, (result) => {
         if (result) {
-            baseModel.modify("h_financial", idJson, notifies, handleModify);
+            baseModel.modify("h_financial", idJson, finacial, handleModify);
         } else {
             res.json(Util.returnMes("0", {}, "该账单不存在!"));
         }
