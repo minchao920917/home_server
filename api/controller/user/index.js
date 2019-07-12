@@ -2,12 +2,13 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 11:41:49
  * @ Modified by: minchao
- * @ Modified time: 2019-07-11 11:10:39
+ * @ Modified time: 2019-08-12 15:16:58
  * @ Description: 用户成员模块
  */
 
 var Util = require('../../../util/util')
 var BaseModel = require('../../model/baseModel');
+var md5 = require('md5-node');
 
 // 获取成员列表
 exports.getUserList = (req, res, next) => {
@@ -52,7 +53,7 @@ exports.createUser = (req, res, next) => {
     var baseModel = new BaseModel(); //创建baseModel实例
     var userObject = {
         "user_name": req.body.user_name,
-        "password": '123456',
+        "password": md5('123456'),
         "phone": req.body.phone,
         "home_id": '0',
         "role": '0',

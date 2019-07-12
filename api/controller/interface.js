@@ -4,6 +4,7 @@ const myrouter = require('./router.js')
 
 // 登录模块接口
 router.post('/login', myrouter.longin)
+router.post('/regist', myrouter.regist)
 //用户模块接口
 router.post('/getUserList', myrouter.getUserList)
 router.post('/createUser', myrouter.createUser)

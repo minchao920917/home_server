@@ -6,6 +6,7 @@ var addressController = require('./address') // 地址管理
 var contactsController = require('./contacts') // 名片夹管理
 
 exports.longin = loginController.longin // 登录
+exports.regist = loginController.regist // 注册
 exports.getUserList = userController.getUserList //获取用户列表 
 exports.createUser = userController.createUser //创建用户 
 exports.editUser = userController.editUser //编辑用户信息 
