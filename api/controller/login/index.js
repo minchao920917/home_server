@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 10:04:55
  * @ Modified by: minchao
- * @ Modified time: 2019-08-12 15:28:11
+ * @ Modified time: 2019-08-22 15:50:29
  * @ Description: 登录模块
  */
 
@@ -55,6 +55,7 @@ exports.longin = (req, res, next) => {
     }
     var data = person;
     data.token = token;
+    delete data.password;
     baseModel.insert("h_login", loginRecord, function () {
       if (result) {
         res.json(Util.returnMes("1", data, "登录成功!"));

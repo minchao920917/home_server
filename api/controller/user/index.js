@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 11:41:49
  * @ Modified by: minchao
- * @ Modified time: 2019-08-12 15:16:58
+ * @ Modified time: 2019-08-22 16:52:47
  * @ Description: 用户成员模块
  */
 
@@ -58,6 +58,7 @@ exports.createUser = (req, res, next) => {
         "home_id": '0',
         "role": '0',
         "nick_name": req.body.nick_name,
+        "head_url":"",
         "create_time": Util.toDataString(new Date()),
         "update_time": "",
     }

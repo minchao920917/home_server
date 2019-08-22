@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50644
 File Encoding         : 65001
 
-Date: 2019-07-12 18:59:23
+Date: 2019-08-22 19:25:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3330,7 +3330,7 @@ CREATE TABLE `h_contacts` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `person_id` int(11) NOT NULL COMMENT '所属人id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_contacts
@@ -3409,7 +3409,7 @@ CREATE TABLE `h_login` (
   `equipment` varchar(55) NOT NULL COMMENT '登录设备',
   `login_time` varchar(50) NOT NULL COMMENT '登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_login
@@ -3442,6 +3442,22 @@ INSERT INTO `h_login` VALUES ('72', '1', '::1', 'MacOSX', '2019-07-12 16:58:16')
 INSERT INTO `h_login` VALUES ('73', '1', '::1', 'MacOSX', '2019-07-12 16:58:45');
 INSERT INTO `h_login` VALUES ('74', '1', '::1', 'MacOSX', '2019-07-12 16:59:24');
 INSERT INTO `h_login` VALUES ('75', '1', '::1', 'MacOSX', '2019-07-12 17:03:58');
+INSERT INTO `h_login` VALUES ('76', '1', '::1', 'MacOSX', '2019-08-12 14:15:35');
+INSERT INTO `h_login` VALUES ('77', '1', '::1', 'MacOSX', '2019-08-12 15:12:30');
+INSERT INTO `h_login` VALUES ('78', '1', '::1', 'MacOSX', '2019-08-12 15:33:59');
+INSERT INTO `h_login` VALUES ('79', '1', '::1', 'MacOSX', '2019-08-22 15:25:54');
+INSERT INTO `h_login` VALUES ('80', '1', '::1', 'MacOSX', '2019-08-22 15:29:32');
+INSERT INTO `h_login` VALUES ('81', '1', '::1', 'MacOSX', '2019-08-22 15:34:16');
+INSERT INTO `h_login` VALUES ('82', '1', '::1', 'MacOSX', '2019-08-22 15:34:36');
+INSERT INTO `h_login` VALUES ('83', '1', '::1', 'MacOSX', '2019-08-22 15:35:05');
+INSERT INTO `h_login` VALUES ('84', '1', '::1', 'MacOSX', '2019-08-22 15:36:06');
+INSERT INTO `h_login` VALUES ('85', '1', '::1', 'MacOSX', '2019-08-22 15:37:51');
+INSERT INTO `h_login` VALUES ('86', '1', '::1', 'MacOSX', '2019-08-22 15:41:35');
+INSERT INTO `h_login` VALUES ('87', '1', '::1', 'MacOSX', '2019-08-22 15:43:06');
+INSERT INTO `h_login` VALUES ('88', '1', '::1', 'MacOSX', '2019-08-22 15:50:55');
+INSERT INTO `h_login` VALUES ('89', '1', '::1', 'MacOSX', '2019-08-22 15:54:37');
+INSERT INTO `h_login` VALUES ('90', '1', '::1', 'MacOSX', '2019-08-22 16:53:44');
+INSERT INTO `h_login` VALUES ('91', '1', '::1', 'MacOSX', '2019-08-22 17:54:39');
 
 -- ----------------------------
 -- Table structure for `h_notify`
@@ -3482,27 +3498,21 @@ DROP TABLE IF EXISTS `h_users`;
 CREATE TABLE `h_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `user_name` varchar(50) NOT NULL COMMENT '用户名',
-  `password` varchar(20) NOT NULL COMMENT '登录密码',
+  `password` varchar(255) NOT NULL COMMENT '登录密码',
   `phone` varchar(11) NOT NULL COMMENT '手机号',
   `home_id` int(11) NOT NULL COMMENT '家庭id',
   `role` int(11) NOT NULL COMMENT '1家庭户主，0普通成员',
   `nick_name` varchar(50) NOT NULL COMMENT '昵称',
+  `head_url` varchar(555) DEFAULT NULL,
   `create_time` varchar(50) NOT NULL COMMENT '创建时间',
   `update_time` varchar(50) NOT NULL COMMENT '更新时间',
   `remarks` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_users
 -- ----------------------------
-INSERT INTO `h_users` VALUES ('1', '闵超', '123456', '13656241819', '1', '0', '', '', '', null);
-INSERT INTO `h_users` VALUES ('2', '闵长峰', '123456', '18151109519', '1', '0', 'minchangfeng', '2019-07-10 14:17:35', '', null);
-INSERT INTO `h_users` VALUES ('7', '闵小花', '123456', '18162210123', '1', '0', '闵小花2', '2019-07-10 15:30:11', '2019-07-10 15:56:31', null);
-INSERT INTO `h_users` VALUES ('8', '闵长峰', '123456', '13656241129', '1', '0', 'mincha', '2019-07-11 10:38:23', '', null);
-INSERT INTO `h_users` VALUES ('9', '闵长峰', '123456', '13656241129', '1', '0', 'mincha', '2019-07-11 10:38:25', '', null);
-INSERT INTO `h_users` VALUES ('10', '闵长峰', '123456', '13656241129', '1', '0', 'mincha', '2019-07-11 10:39:19', '', null);
-INSERT INTO `h_users` VALUES ('11', '闵长峰', '123456', '13656241129', '1', '0', 'mincha', '2019-07-11 10:41:04', '', null);
-INSERT INTO `h_users` VALUES ('12', '闵长峰', '123456', '11656241129', '1', '0', 'mincha', '2019-07-11 10:46:02', '', null);
-INSERT INTO `h_users` VALUES ('13', '闵长峰', '123456', '11656441129', '1', '0', 'mincha', '2019-07-11 10:46:13', '', null);
-INSERT INTO `h_users` VALUES ('14', '闵长峰', '123456', '11656461129', '1', '0', 'mincha', '2019-07-11 10:56:03', '', null);
+INSERT INTO `h_users` VALUES ('1', '闵超', 'e10adc3949ba59abbe56e057f20f883e', '13656241819', '1', '0', '闵长峰', 'http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqCw1jOhvHviaLlibYTOiaqsDwJxiaMWlIxTVwTouaD3CHjicOfCwdcLTyUfYiaWXalnJUPG2aRdJMicI5Fw/132', '', '', '昨天你不会做的事，今天你也不会做');
+INSERT INTO `h_users` VALUES ('16', '18151109514', 'e10adc3949ba59abbe56e057f20f883e', '18151109514', '0', '0', '18151109514', null, '2019-08-12 15:18:17', '', null);
+INSERT INTO `h_users` VALUES ('17', '13656241818', '14e1b600b1fd579f47433b88e8d85291', '13656241818', '0', '0', '13656241818', null, '2019-08-12 15:25:56', '', '昨天你不会做的事，今天你也不会做');
