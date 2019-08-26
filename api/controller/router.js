@@ -14,7 +14,8 @@ exports.getUserInfoById = userController.getUserInfoById //根据id获取用户
 exports.deleteUser = userController.deleteUser //删除用户
 
 
-exports.getNotifyList = notifyController.getNotifyList //获取通知列表
+exports.getMyNotifyList = notifyController.getMyNotifyList //获取通知列表
+exports.getOtherNotifyList = notifyController.getOtherNotifyList //获取通知列表
 exports.addNotifies = notifyController.addNotifies //增加
 exports.getNotifyById = notifyController.getNotifyById //根据id查找通知
 exports.editNotify = notifyController.editNotify //根据id修改通知

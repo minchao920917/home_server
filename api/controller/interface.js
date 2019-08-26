@@ -13,7 +13,8 @@ router.post('/getUserInfoById', myrouter.getUserInfoById)
 router.post('/deleteUser', myrouter.deleteUser)
 
 // 通知模块接口
-router.post('/getNotifyList', myrouter.getNotifyList)
+router.post('/getMyNotifyList', myrouter.getMyNotifyList)
+router.post('/getOtherNotifyList', myrouter.getOtherNotifyList)
 router.post('/addNotifies', myrouter.addNotifies)
 router.post('/getNotifyById', myrouter.getNotifyById)
 router.post('/editNotify', myrouter.editNotify)

@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 18:18:03
  * @ Modified by: minchao
- * @ Modified time: 2019-07-12 14:34:28
+ * @ Modified time: 2019-08-26 19:59:01
  * @ Description: 通知管理
  */
 
@@ -31,14 +31,52 @@ exports.addNotifies = (req, res, next)=>{
 }
 
 //获取通知列表
-exports.getNotifyList = (req, res, next)=>{
+exports.getMyNotifyList = (req, res, next)=>{
     var pageSize =req.body.pageSize?req.body.pageSize:"";
     var pageNum =req.body.pageNum?req.body.pageNum:"";
-    
+    var id = req.body.id;
+    var home_id = req.body.home_id;
     var baseModel = new BaseModel(); //创建baseModel实例
-
+ 
     baseModel.find("h_notify", {
-        'and': [],
+        'and': [{
+            'key':'person_id',
+            'opts':'=',
+            'value':id
+        },{
+            'key':'home_id',
+            'opts':'=',
+            'value':home_id
+        }],
+        'or': []
+    }, {
+        'key': 'create_time',
+        'type': 'desc'
+    }, [(pageNum-1)*pageSize,pageSize], [], (results) => {
+        console.log(results);
+        if (results) {
+            res.json(Util.returnMes("1", results, "获取通知列表成功!"));
+        } else {
+            res.json(Util.returnMes("0", {}, "获取通知列表失败!"));
+        }
+    })
+}
+exports.getOtherNotifyList = (req, res, next)=>{
+    var pageSize =req.body.pageSize?req.body.pageSize:"";
+    var pageNum =req.body.pageNum?req.body.pageNum:"";  
+    var baseModel = new BaseModel(); //创建baseModel实例
+    var id = req.body.id;
+    var home_id = req.body.home_id;
+    baseModel.find("h_notify", {
+        'and': [{
+            'key':'person_id',
+            'opts':'<>',
+            'value':id
+        },{
+            'key':'home_id',
+            'opts':'=',
+            'value':home_id
+        }],
         'or': []
     }, {
         'key': 'create_time',

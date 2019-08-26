@@ -1,15 +1,15 @@
-var Util = require('../../util/util')
-,dbConfig = require('./dbconfig')
-, mysql = require('mysql')
+var Util = require('../../util/util'),
+    dbConfig = require('./dbconfig'),
+    mysql = require('mysql')
 
-module.exports = function(){
+module.exports = function () {
     __constructor();
 
- 	/**
+    /**
      *
      * 数据库连接构造函数
      */
-    function __constructor(){
+    function __constructor() {
         /* 获取mysql配置信息 */
         client = {};
         client.host = dbConfig['host'];
@@ -19,14 +19,14 @@ module.exports = function(){
         dbClient = mysql.createConnection(client);
         dbClient.connect();
         /* 执行mysql指令，连接mysql服务器的一个数据库 */
-        dbClient.query('USE ' + dbConfig['dbName'], function(error, results) {
-            if(error) {
+        dbClient.query('USE ' + dbConfig['dbName'], function (error, results) {
+            if (error) {
                 console.log('数据库连接错误: ' + error.message);
                 dbClient.end();
-            }else{
-               
+            } else {
+
             }
-            
+
         });
     }
 
@@ -38,11 +38,12 @@ module.exports = function(){
      * @param callback function
      * @return null
      */
-    this.insert = function(tableName, rowInfo, callback){
-        dbClient.query('INSERT INTO ' + tableName + ' SET ?', rowInfo, function(err, result) {
+    this.insert = function (tableName, rowInfo, callback) {
+        dbClient.query('INSERT INTO ' + tableName + ' SET ?', rowInfo, function (err, result) {
             if (err) throw err;
-            console.log('insert -'+' success!');
+            console.log('insert -' + ' success!');
             callback(result.insertId);
+            dbClient.end();
         });
     };
 
@@ -54,20 +55,22 @@ module.exports = function(){
      * @param callback function
      * @return null
      */
-    this.findOneById = function(tableName, idJson, callback){
+    this.findOneById = function (tableName, idJson, callback) {
         dbClient.query('SELECT * FROM ' + tableName + ' where ?', idJson,
-            function(error, results) {
+            function (error, results) {
                 if (error) {
                     console.log('GetData Error: ' + error.message);
                     dbClient.end();
                     callback(false);
                 } else {
-                    if(results){ //如果查询到数据则返回一条数据即可
+                    if (results) { //如果查询到数据则返回一条数据即可
                         callback(results.pop());
-                    } else{ //查询数据为空则返回空数据
-                        console.log('findOneById -'+' success!');
+                    
+                    } else { //查询数据为空则返回空数据
+                        console.log('findOneById -' + ' success!');
                         callback(results);
-                        
+                   
+
                     }
                 }
             });
@@ -80,14 +83,17 @@ module.exports = function(){
      * @param callback function
      * @return null
      */
-    this.modify = function(tableName, idJson, rowInfo, callback){
-        dbClient.query('update ' + tableName + ' SET ? where ?', [rowInfo, idJson], function(err, result) {
-            if(err) {
+    this.modify = function (tableName, idJson, rowInfo, callback) {
+        dbClient.query('update ' + tableName + ' SET ? where ?', [rowInfo, idJson], function (err, result) {
+            if (err) {
                 console.log("ClientReady Error: " + err.message);
                 callback(false);
+                dbClient.end();
             } else {
-                console.log('modify -'+' success!');
+                console.log('modify -' + ' success!');
                 callback(result);
+             
+
             }
         });
     };
@@ -101,16 +107,17 @@ module.exports = function(){
      * @param callback function
      * @return null
      */
-    this.remove = function(tableName, idJson, callback){
+    this.remove = function (tableName, idJson, callback) {
         dbClient.query('delete from ' + tableName + ' where ?', idJson,
-            function(error, results) {
-                if(error) {
+            function (error, results) {
+                if (error) {
                     console.log("ClientReady Error: " + error.message);
-                    dbClient.end();
                     callback(false);
+
                 } else {
-                    console.log('remove -' +' success!');
+                    console.log('remove -' + ' success!');
                     callback(true);
+
                 }
             });
     };
@@ -134,40 +141,42 @@ module.exports = function(){
      *      }]
      * }
      */
-    this.find = function(tableName, whereJson, orderByJson, limitArr, fieldsArr, callback){
-       
-        var andWhere   = whereJson['and']
-            , orWhere    = whereJson['or']
-            , andArr = []
-            , orArr  = [];
+    this.find = function (tableName, whereJson, orderByJson, limitArr, fieldsArr, callback) {
+
+        var andWhere = whereJson['and'],
+            orWhere = whereJson['or'],
+            andArr = [],
+            orArr = [];
         /* 将数组转换为where and条件array */
-        for(var i=0; i<andWhere.length; i++){
-            andArr.push(andWhere[i]['key'] + andWhere[i]['opts'] + andWhere[i]['value']) ;
+        for (var i = 0; i < andWhere.length; i++) {
+            andArr.push(andWhere[i]['key'] + andWhere[i]['opts'] + andWhere[i]['value']);
         }
         /* 将数组转换为where or条件array */
-        for(var i=0; i<orWhere.length; i++){
-            orArr.push(orWhere[i]['key'] + orWhere[i]['opts'] +orWhere[i]['value']);
+        for (var i = 0; i < orWhere.length; i++) {
+            orArr.push(orWhere[i]['key'] + orWhere[i]['opts'] + orWhere[i]['value']);
         }
         /* 判断条件是否存在，如果存在则转换相应的添加语句 */
-        var filedsStr = fieldsArr.length>0 ? fieldsArr.join(',') : '*'
-            , andStr    = andArr.length>0    ? andArr.join(' and ') : ''
-            , orStr     = orArr.length>0     ? ' or '+ orArr.join(' or ') : ''
-            , limitStr  = limitArr.length>0  ? ' limit ' + limitArr.join(',') : ''
-            , orderStr  = orderByJson ? ' order by ' + orderByJson['key'] + ' ' + orderByJson['type'] : '';
-        
-        var whereStr = (andStr+orStr =="")?'':' WHERE ' + andStr + orStr;
+        var filedsStr = fieldsArr.length > 0 ? fieldsArr.join(',') : '*',
+            andStr = andArr.length > 0 ? andArr.join(' and ') : '',
+            orStr = orArr.length > 0 ? ' or ' + orArr.join(' or ') : '',
+            limitStr = limitArr.length > 0 ? ' limit ' + limitArr.join(',') : '',
+            orderStr = orderByJson ? ' order by ' + orderByJson['key'] + ' ' + orderByJson['type'] : '';
+
+        var whereStr = (andStr + orStr == "") ? '' : ' WHERE ' + andStr + orStr;
         /* 执行mysql语句 */
         console.log('SELECT ' + filedsStr + ' FROM ' + tableName + whereStr + orderStr + limitStr);
         dbClient.query('SELECT ' + filedsStr + ' FROM ' + tableName + whereStr + orderStr + limitStr,
-            function(error, results) {
+            function (error, results) {
                 if (error) {
                     console.log('GetData Error: ' + error.message);
                     dbClient.end();
                     callback(false);
                 } else {
-                    console.log('find -' +' success!');
+                    console.log('find -' + ' success!');
                     callback(results);
+
                 }
             });
+       
     };
 }

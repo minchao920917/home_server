@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 11:41:49
  * @ Modified by: minchao
- * @ Modified time: 2019-08-22 16:52:47
+ * @ Modified time: 2019-08-26 14:58:45
  * @ Description: 用户成员模块
  */
 
@@ -14,16 +14,20 @@ var md5 = require('md5-node');
 exports.getUserList = (req, res, next) => {
     var pageSize =req.body.pageSize?req.body.pageSize:"";
     var pageNum =req.body.pageNum?req.body.pageNum:"";
-    
+    var home_id =req.body.home_id?req.body.home_id:"";
     var baseModel = new BaseModel(); //创建baseModel实例
 
     baseModel.find("h_users", {
-        'and': [],
+        'and': [{
+            'key':'home_id',
+            'opts':'=',
+            'value':home_id
+        }],
         'or': []
     }, {
         'key': 'create_time',
         'type': 'desc'
-    }, [(pageNum-1)*pageSize,pageSize], [], (results) => {
+    }, [(pageNum-1)*pageSize,pageSize], ["id","user_name","phone","home_id","role","nick_name","head_url","create_time"], (results) => {
         console.log(results);
         if (results) {
             res.json(Util.returnMes("1", results, "获取用户列表成功!"));
@@ -55,7 +59,7 @@ exports.createUser = (req, res, next) => {
         "user_name": req.body.user_name,
         "password": md5('123456'),
         "phone": req.body.phone,
-        "home_id": '0',
+        "home_id": req.body.home_id,
         "role": '0',
         "nick_name": req.body.nick_name,
         "head_url":"",
