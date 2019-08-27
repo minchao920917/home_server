@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 18:18:03
  * @ Modified by: minchao
- * @ Modified time: 2019-08-26 19:59:01
+ * @ Modified time: 2019-08-27 10:51:28
  * @ Description: 通知管理
  */
 
@@ -18,6 +18,7 @@ exports.addNotifies = (req, res, next)=>{
         "title": req.body.title,
         "content": req.body.content,
         "create_time": Util.toDataString(new Date()),
+        "update_time": Util.toDataString(new Date()),
         "person_id": req.body.person_id,
         "home_id": req.body.home_id,
     }
@@ -138,7 +139,7 @@ exports.editNotify = (req, res, next)=>{
 //删除通知
 exports.removeNotify = (req, res, next)=>{
     var idJson = {
-        'id': req.body.id ? req.body.id : -1
+        'id': req.body.id ? req.body.id : -1,
     };
     var baseModel = new BaseModel(); //创建baseModel实例
     var handleDelete = function (result) {
