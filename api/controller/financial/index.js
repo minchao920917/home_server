@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 18:18:03
  * @ Modified by: minchao
- * @ Modified time: 2019-07-12 15:07:53
+ * @ Modified time: 2019-09-05 15:12:33
  * @ Description: 账单管理 h_financial
  */
 
@@ -19,7 +19,8 @@ exports.addFinacial = (req, res, next)=>{
         "reason": req.body.reason,
         "create_time": Util.toDataString(new Date()),
         "person_id": req.body.person_id,
-        "home_id": req.body.home_id
+        "home_id": req.body.home_id,
+        "user_type": req.body.user_type,
     }
     baseModel.insert("h_financial", finacial, function (result) {
         if (result) {
@@ -34,11 +35,21 @@ exports.addFinacial = (req, res, next)=>{
 exports.getFinacialList = (req, res, next)=>{
     var pageSize =req.body.pageSize?req.body.pageSize:"";
     var pageNum =req.body.pageNum?req.body.pageNum:"";
+    var home_id =req.body.home_id?req.body.home_id:"";
+    var dateString =req.body.dateString?req.body.dateString:"";
     
     var baseModel = new BaseModel(); //创建baseModel实例
 
     baseModel.find("h_financial", {
-        'and': [],
+        'and': [{
+            'key':'home_id',
+            'opts':'=',
+            'value':home_id
+        },{
+            'key':"DATE_FORMAT(create_time, '%Y%m')",
+            'opts':'=',
+            'value':"DATE_FORMAT('"+ dateString +"', '%Y%m')"
+        }],
         'or': []
     }, {
         'key': 'create_time',

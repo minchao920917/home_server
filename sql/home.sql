@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50644
 File Encoding         : 65001
 
-Date: 2019-08-26 20:19:47
+Date: 2019-09-06 17:08:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3353,21 +3353,30 @@ CREATE TABLE `h_financial` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `person_id` int(11) NOT NULL COMMENT '人id',
   `home_id` int(11) NOT NULL COMMENT '家id',
+  `user_type` int(11) NOT NULL COMMENT '使用类型：1餐饮美食，2服饰美容，3生活用品，4日常缴费，5交通出行，6休闲娱乐，7医疗保健，8住房物业，9文体教育，10其他消费',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_financial
 -- ----------------------------
-INSERT INTO `h_financial` VALUES ('1', '1', '22.00', '叫外卖', '2019-07-11 17:45:30', null, '1', '1');
-INSERT INTO `h_financial` VALUES ('2', '1', '33.00', '点水果茶', '2019-07-11 17:45:55', '2019-07-11 18:29:04', '1', '1');
-INSERT INTO `h_financial` VALUES ('4', '0', '33.00', '点水果33茶', '2019-07-11 17:46:01', '2019-07-11 18:29:24', '1', '1');
-INSERT INTO `h_financial` VALUES ('5', '0', '22.00', '叫外卖', '2019-07-11 17:46:01', null, '1', '1');
-INSERT INTO `h_financial` VALUES ('6', '0', '22.00', '叫外卖', '2019-07-11 17:46:02', null, '1', '1');
-INSERT INTO `h_financial` VALUES ('7', '0', '22.00', '叫外卖', '2019-07-11 17:47:21', null, '1', '1');
-INSERT INTO `h_financial` VALUES ('8', '0', '22.00', '叫外卖', '2019-07-11 18:17:18', null, '1', '1');
-INSERT INTO `h_financial` VALUES ('9', '0', '22.00', '叫外卖', '2019-07-11 18:20:14', null, '1', '1');
-INSERT INTO `h_financial` VALUES ('10', '0', '22.00', '叫外11卖', '2019-07-11 18:20:19', null, '1', '1');
+INSERT INTO `h_financial` VALUES ('1', '1', '22.00', '叫外卖', '2019-07-11 17:45:30', null, '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('2', '1', '33.00', '点水果茶', '2019-01-11 17:45:55', '2019-07-11 18:29:04', '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('4', '0', '33.00', '点水果33茶', '2019-07-11 17:46:01', '2019-07-11 18:29:24', '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('5', '0', '22.00', '叫外卖', '2019-07-11 17:46:01', null, '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('6', '0', '22.00', '叫外卖', '2019-07-11 17:46:02', null, '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('7', '0', '22.00', '叫外卖', '2019-07-11 17:47:21', null, '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('8', '0', '22.00', '叫外卖', '2019-07-11 18:17:18', null, '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('9', '0', '22.00', '叫外卖', '2019-07-11 18:20:14', null, '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('10', '0', '22.00', '叫外11卖', '2019-07-11 18:20:19', null, '1', '1', '0');
+INSERT INTO `h_financial` VALUES ('11', '0', '22.00', '叫外11卖', '2019-09-05 14:20:49', null, '1', '1', '1');
+INSERT INTO `h_financial` VALUES ('12', '0', '223.00', '叫外11卖', '2019-09-05 14:29:45', null, '1', '1', '1');
+INSERT INTO `h_financial` VALUES ('13', '0', '22.00', '吃饭', '2019-09-05 14:32:20', null, '18', '1', '1');
+INSERT INTO `h_financial` VALUES ('14', '0', '12.00', '午饭', '2019-09-05 14:33:12', null, '18', '1', '4');
+INSERT INTO `h_financial` VALUES ('15', '1', '2233.00', '卖手机', '2019-09-05 14:36:23', null, '1', '1', '1');
+INSERT INTO `h_financial` VALUES ('16', '1', '2233.00', '卖手机', '2019-09-05 14:36:28', null, '1', '1', '1');
+INSERT INTO `h_financial` VALUES ('17', '0', '21.00', '晚餐', '2019-09-05 14:43:49', null, '18', '1', '8');
+INSERT INTO `h_financial` VALUES ('18', '0', '22.00', '哈哈 ', '2019-09-05 14:44:36', null, '18', '1', '7');
 
 -- ----------------------------
 -- Table structure for `h_home`
@@ -3409,7 +3418,7 @@ CREATE TABLE `h_login` (
   `equipment` varchar(55) NOT NULL COMMENT '登录设备',
   `login_time` varchar(50) NOT NULL COMMENT '登录时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_login
@@ -3480,6 +3489,11 @@ INSERT INTO `h_login` VALUES ('110', '16', '192.168.8.52', 'MacOSX', '2019-08-26
 INSERT INTO `h_login` VALUES ('111', '18', '192.168.8.52', 'MacOSX', '2019-08-26 19:48:33');
 INSERT INTO `h_login` VALUES ('112', '18', '192.168.8.52', 'MacOSX', '2019-08-26 19:49:23');
 INSERT INTO `h_login` VALUES ('113', '18', '192.168.8.52', 'MacOSX', '2019-08-26 19:51:07');
+INSERT INTO `h_login` VALUES ('114', '18', '192.168.8.52', 'MacOSX', '2019-08-27 10:13:38');
+INSERT INTO `h_login` VALUES ('115', '18', '192.168.8.52', 'MacOSX', '2019-08-29 15:21:21');
+INSERT INTO `h_login` VALUES ('116', '18', '192.168.8.52', 'MacOSX', '2019-09-05 14:11:20');
+INSERT INTO `h_login` VALUES ('117', '29', '192.168.8.52', 'MacOSX', '2019-09-05 16:30:33');
+INSERT INTO `h_login` VALUES ('118', '18', '192.168.8.52', 'MacOSX', '2019-09-05 16:37:11');
 
 -- ----------------------------
 -- Table structure for `h_notify`
@@ -3495,25 +3509,26 @@ CREATE TABLE `h_notify` (
   `person_id` int(11) NOT NULL COMMENT '发布人id',
   `home_id` int(11) NOT NULL COMMENT '家id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_notify
 -- ----------------------------
 INSERT INTO `h_notify` VALUES ('2', '1', '修改title', '修改content', '2019-07-11 16:47:36', '2019-07-11 17:40:53', '18', '1');
-INSERT INTO `h_notify` VALUES ('3', '1', '第一条通知', '第一条通知内容', '2019-07-11 16:47:39', null, '18', '1');
-INSERT INTO `h_notify` VALUES ('5', '0', '第二条通知', '第一条通知内容', '2019-07-11 16:48:04', null, '18', '1');
-INSERT INTO `h_notify` VALUES ('6', '0', '第三条通知', '第一条通知内容', '2019-07-11 16:59:48', '', '25', '1');
-INSERT INTO `h_notify` VALUES ('8', '0', '第四条通知', '第一条通知内容', '2019-07-11 17:10:42', '', '1', '1');
-INSERT INTO `h_notify` VALUES ('9', '0', '第五条通知', '第一条通知内容', '2019-07-11 17:10:43', '', '2', '2');
-INSERT INTO `h_notify` VALUES ('10', '0', '第六条通知', '第一条通知内容', '2019-07-11 17:10:43', '', '2', '2');
-INSERT INTO `h_notify` VALUES ('11', '0', '第七条通知', '第一条通知内容', '2019-07-11 17:10:44', '', '2', '1');
-INSERT INTO `h_notify` VALUES ('12', '0', '第八条通知', '第一条通知内容', '2019-07-11 17:10:45', '', '1', '1');
-INSERT INTO `h_notify` VALUES ('13', '0', '第九条通知', '第一条通知内容', '2019-07-11 17:10:46', '', '1', '1');
-INSERT INTO `h_notify` VALUES ('14', '0', '第十条通知', '第一条通知内容', '2019-07-11 17:10:47', '', '1', '1');
-INSERT INTO `h_notify` VALUES ('15', '0', '第十一条通知', '第一条通知内容', '2019-07-11 17:40:40', '', '1', '1');
-INSERT INTO `h_notify` VALUES ('16', '0', '新添加的', '新添加的\n飒飒的', '2019-08-26 20:16:03', '', '18', '1');
-INSERT INTO `h_notify` VALUES ('17', '1', '新添加的', '奥术大师大啊实打实的', '2019-08-26 20:16:36', '', '18', '1');
+INSERT INTO `h_notify` VALUES ('3', '1', '第一条通知', '第一条通知内容', '2019-07-11 16:47:39', '2019-08-27 10:52:06', '18', '1');
+INSERT INTO `h_notify` VALUES ('6', '0', '第三条通知', '第一条通知内容', '2019-07-11 16:59:48', '2019-07-11 16:59:48', '25', '1');
+INSERT INTO `h_notify` VALUES ('8', '0', '第四条通知', '第一条通知内容', '2019-07-11 17:10:42', '2019-07-11 17:10:42', '1', '1');
+INSERT INTO `h_notify` VALUES ('9', '0', '第五条通知', '第一条通知内容', '2019-07-11 17:10:43', '2019-07-11 17:10:43', '2', '2');
+INSERT INTO `h_notify` VALUES ('10', '0', '第六条通知', '第一条通知内容', '2019-07-11 17:10:43', '2019-07-11 17:10:43', '2', '2');
+INSERT INTO `h_notify` VALUES ('11', '0', '第七条通知', '第一条通知内容', '2019-07-11 17:10:44', '2019-07-11 17:10:44', '2', '1');
+INSERT INTO `h_notify` VALUES ('12', '0', '第八条通知', '第一条通知内容', '2019-07-11 17:10:45', '2019-07-11 17:10:45', '1', '1');
+INSERT INTO `h_notify` VALUES ('13', '0', '第九条通知', '第一条通知内容', '2019-07-11 17:10:46', '2019-07-11 17:10:46', '1', '1');
+INSERT INTO `h_notify` VALUES ('14', '0', '第十条通知', '第一条通知内容', '2019-07-11 17:10:47', '2019-07-11 17:10:47', '1', '1');
+INSERT INTO `h_notify` VALUES ('15', '0', '第十一条通知', '第一条通知内容', '2019-07-11 17:40:40', '2019-07-11 17:40:40', '1', '1');
+INSERT INTO `h_notify` VALUES ('19', '0', '哈哈', '哈哈哈', '2019-08-27 10:35:54', '', '18', '1');
+INSERT INTO `h_notify` VALUES ('20', '1', 'test1', '阿达阿萨德2', '2019-08-27 10:45:57', '2019-08-27 10:50:25', '18', '1');
+INSERT INTO `h_notify` VALUES ('21', '1', '刚刚', '阿萨德', '2019-08-27 10:55:23', '2019-08-27 14:19:56', '18', '1');
+INSERT INTO `h_notify` VALUES ('22', '1', '是的', '阿萨德', '2019-08-27 14:45:00', '2019-08-27 14:45:00', '18', '1');
 
 -- ----------------------------
 -- Table structure for `h_users`
@@ -3532,7 +3547,7 @@ CREATE TABLE `h_users` (
   `update_time` varchar(50) NOT NULL COMMENT '更新时间',
   `remarks` varchar(50) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of h_users
@@ -3540,3 +3555,4 @@ CREATE TABLE `h_users` (
 INSERT INTO `h_users` VALUES ('16', '18151109514', 'e10adc3949ba59abbe56e057f20f883e', '18151109514', '1', '0', '18151109514', null, '2019-08-12 15:18:17', '', null);
 INSERT INTO `h_users` VALUES ('18', '闵长峰', 'e10adc3949ba59abbe56e057f20f883e', '13656241819', '1', '1', 'mincha', 'http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eqCw1jOhvHviaLlibYTOiaqsDwJxiaMWlIxTVwTouaD3CHjicOfCwdcLTyUfYiaWXalnJUPG2aRdJMicI5Fw/132', '2019-08-23 09:31:08', '', 'ss');
 INSERT INTO `h_users` VALUES ('25', '闵是是', 'e10adc3949ba59abbe56e057f20f883e', '13656241815', '1', '0', '22', '', '2019-08-26 18:00:02', '2019-08-26 18:02:18', null);
+INSERT INTO `h_users` VALUES ('29', '18151109519', 'e10adc3949ba59abbe56e057f20f883e', '18151109519', '0', '0', '18151109519', null, '2019-09-05 16:30:22', '', null);
