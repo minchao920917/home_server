@@ -2,7 +2,7 @@
  * @ Author: minchao
  * @ Create Time: 2019-07-10 10:04:55
  * @ Modified by: minchao
- * @ Modified time: 2019-08-22 15:50:29
+ * @ Modified time: 2019-09-05 16:28:58
  * @ Description: 登录模块
  */
 
@@ -93,7 +93,7 @@ exports.regist = (req, res, next) => {
     if (!result[0]) {
       var userObject = {
         "user_name": req.body.phone,
-        "password": md5(req.body.password),
+        "password": req.body.password,
         "phone": req.body.phone,
         "home_id": '0',
         "role": '0',

@@ -4,6 +4,7 @@ var notifyController = require('./notify') // 通知
 var financialController = require('./financial') // 账单
 var addressController = require('./address') // 地址管理
 var contactsController = require('./contacts') // 名片夹管理
+var commonController = require('./common') // 公共接口
 
 exports.longin = loginController.longin // 登录
 exports.regist = loginController.regist // 注册
@@ -41,6 +42,9 @@ exports.addContacts = contactsController.addContacts //新增名片
 exports.getContactsById = contactsController.getContactsById //根据id查找名片
 exports.editContacts = contactsController.editContacts //修改名片
 exports.removeContacts = contactsController.removeContacts //删除名片
+
+
+exports.getAllprovince = commonController.getAllprovince //获取所有一级省市
 
 
 

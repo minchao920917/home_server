@@ -41,4 +41,7 @@ router.post('/getAddressById', myrouter.getAddressById)
 router.post('/editAddress', myrouter.editAddress)
 router.post('/removeAddress', myrouter.removeAddress)
 
+//公共接口模块
+router.post('/getAllprovince', myrouter.getAllprovince)
+
 module.exports = router
